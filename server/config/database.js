@@ -9,5 +9,3 @@ export const connectDB = async () => {
 
 // username :- jaighai8
 // password :- hJKhpTaZlYKAdLm3
-
-//  mongodb+srv://Jaighai8:Jaighai8@cluster0.jpo6liu.mongodb.net/ifdaonline?retryWrites=true
