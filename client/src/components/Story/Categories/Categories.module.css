@@ -1,0 +1,45 @@
+.categories {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 1rem;
+  overflow-x: hidden;
+}
+
+.category {
+  width: 20%;
+  height: 10rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  margin-top: 2rem;
+  color: white;
+  text-align: center;
+  background-position: center;
+  background-size: cover;
+  cursor: pointer;
+}
+
+.categorySelected {
+  border: 0.3rem solid #73abff;
+}
+
+@media screen and (max-width: 768px) {
+  .categories {
+    width: 95vw;
+    overflow-x: scroll;
+  }
+
+  .category {
+    width: 8rem;
+    height: 5rem;
+    padding: 0.3rem 1rem;
+    font-size: 0.8rem;
+    margin-right: 0.5rem;
+    margin-top: 1rem;
+  }
+}
