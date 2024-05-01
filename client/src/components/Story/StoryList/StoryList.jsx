@@ -6,9 +6,9 @@ import {
   getStories,
   getStoriesByCategory,
   getStoriesByUser,
-} from "../storyAPI";
-import StoryLoader from "../../common/Loader/StoryLoader";
-import Button from "../../common/Button/Button";
+} from "../../../redux/actions/story";
+import StoryLoader from "../../Loader/StoryLoader";
+import Button from "../../Button/Button";
 
 const Stories = ({ category }) => {
   const dispatch = useDispatch();
@@ -23,11 +23,10 @@ const Stories = ({ category }) => {
   } = useSelector((state) => state.story);
   const { isSmallScreen } = useSelector((state) => state.layout);
   let catLimit = {
-    food: 4,
-    travel: 4,
-    health: 4,
-    movie: 4,
-    education: 4,
+    world: 4,
+    india: 4,
+    fruits: 4,
+    medical: 4,
   };
 
   const { userId, isAuthenticated } = useSelector((state) => state.auth);

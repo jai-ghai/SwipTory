@@ -2,102 +2,188 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
-  loginRequest,
-  loginSuccess,
-  loginFailure,
-  registerRequest,
-  registerSuccess,
-  registerFailure,
-  logoutRequest,
-  logoutSuccess,
-  logoutFailure,
-  loadUserSuccess,
-  loadUserRequest,
-  loadUserFailure,
-} from "./authSlice";
+  createStoryRequest,
+  createStorySuccess,
+  createStoryFailure,
+  getStoriesRequest,
+  getStoriesSuccess,
+  getStoriesFailure,
+  getBookmarksRequest,
+  getBookmarksSuccess,
+  getBookmarksFailure,
+  fetchStoryRequest,
+  fetchStorySuccess,
+  fetchStoryFailure,
+  bookmarkRequest,
+  bookmarkSuccess,
+  bookmarkFailure,
+  likeSuccess,
+  likeFailure,
+  getStoryByUserRequest,
+  getStoryByUserSuccess,
+  getStoryByUserFailure,
+  getCategoryStoriesSuccess,
+  getCategoryStoriesFailure,
+  getCategoryStoriesRequest,
+} from "./../reducers/storyReducer.js";
+import { server } from "../store.js";
 
 axios.defaults.baseURL = import.meta.env.VITE_APP_API_URL;
 axios.defaults.withCredentials = true;
 
-// ===================================== LOAD USER =====================================
+// ================================================= CREATE STORY =================================================
 
-export const loadUser = () => async (dispatch) => {
-  const username = JSON.parse(localStorage.getItem("username"));
+export const createStory = (values) => async (dispatch) => {
   try {
-    dispatch(loadUserRequest());
-
-    const { data } = await axios.get(`/api/user/load/${username}`);
-
-    dispatch(loadUserSuccess(data));
-
-    // toast.success("User Loaded");
+    dispatch(createStoryRequest());
+    const { data } = await axios.post(`${server}/api/story/create`, values);
+    dispatch(createStorySuccess(data));
+    toast.success("Story created successfully", { position: "top-center" });
   } catch (error) {
-    console.log(error);
-    dispatch(loadUserFailure());
+    dispatch(createStoryFailure());
+    toast.error(error.response.data, { position: "top-center" });
   }
 };
 
-// ===================================== REGISTER ==================================
+// ================================================= FETCH STORIES =================================================
 
-export const register = (values) => async (dispatch) => {
+export const getStories = (page, catLimit, cat) => async (dispatch) => {
   try {
-    dispatch(registerRequest());
-    const { data } = await axios.post("/api/user/register", values, {
-      withCredentials: true,
-    });
-    dispatch(registerSuccess(data));
-    localStorage.setItem("username", JSON.stringify(data.username));
-    toast.success("Register Successful", {
-      position: "bottom-left",
-      autoClose: 2000,
-    });
+    if (page === null) {
+      page = 1;
+    }
+    if (catLimit === null) {
+      catLimit = 4;
+    }
+    if (cat === null) {
+      cat = "All";
+    }
+    dispatch(getStoriesRequest());
+    const { data } = await axios.get(
+      `${server}/api/story/getAll?category=All&page=${page}&catLimit=${catLimit}&cat=${cat}`
+    );
+    console.log(data);
+    dispatch(getStoriesSuccess(data));
   } catch (error) {
-    dispatch(registerFailure());
-    console.log(error.response.data);
+    dispatch(getStoriesFailure());
+
     toast.error(error.response.data);
   }
 };
 
-// ===================================== LOGIN =====================================
+// ====================================================== FETCH STORY =====================================================
 
-export const login = (values) => async (dispatch) => {
+export const getStory = (storyId, userId) => async (dispatch) => {
   try {
-    dispatch(loginRequest());
-    const { data } = await axios.post("/api/user/login", values, {
-      withCredentials: true,
-    });
-
-    dispatch(loginSuccess(data));
-
-    dispatch(getStoriesByUser(data.userId));
-    localStorage.setItem("username", JSON.stringify(data.username));
-
-    toast.success("Login Successful", {
-      position: "bottom-left",
-      autoClose: 2000,
-    });
+    dispatch(fetchStoryRequest());
+    if (userId == null) {
+      //get story for not authenicated users
+      const { data } = await axios.get(`/api/story/getById/${storyId}`);
+      dispatch(fetchStorySuccess(data));
+    } else {
+      // get story for authenticated users to check liked/bookmarked or not
+      const { data } = await axios.get(
+        `${server}/api/story/getById/${storyId}?userId=${userId}`
+      );
+      dispatch(fetchStorySuccess(data));
+    }
   } catch (error) {
-    dispatch(loginFailure());
+    dispatch(fetchStoryFailure());
+    toast.error(error);
+  }
+};
+
+// ================================================={ FETCH STORY | USER   }=================================================
+
+export const getStoriesByUser =
+  (userId, userStoriesPage) => async (dispatch) => {
+    try {
+      if (userStoriesPage === null) {
+        userStoriesPage = 1;
+      }
+      dispatch(getStoryByUserRequest());
+      const { data } = await axios.get(
+        `${server}/api/story/getAll?userId=${userId}&page=${userStoriesPage}`
+      );
+      dispatch(getStoryByUserSuccess(data));
+    } catch (error) {
+      dispatch(getStoryByUserFailure());
+      toast.error(error.response.data);
+    }
+  };
+
+// ================================================={ FETCH STORY | CATEGORY  }=================================================
+
+export const getStoriesByCategory = (category, page) => async (dispatch) => {
+  try {
+    if (page === null) {
+      page = 1;
+    }
+    dispatch(getCategoryStoriesRequest());
+    const { data } = await axios.get(
+      `${server}/api/story/getAll?category=${category}&page=${page}`
+    );
+    dispatch(getCategoryStoriesSuccess(data));
+  } catch (error) {
+    console.log("error", error);
+    dispatch(getCategoryStoriesFailure());
     toast.error(error.response.data);
   }
 };
 
-// ===================================== LOGOUT =====================================
+// ================================================= LIKE STORY =====================================================
 
-export const logout = () => async (dispatch) => {
+export const likeStory = (id, userId) => async (dispatch) => {
   try {
-    dispatch(logoutRequest());
-    await axios.post("/api/user/logout", { withCredentials: true });
-
-    dispatch(logoutSuccess());
-
-    localStorage.removeItem("username");
-    toast.success("Logout Successful", {
-      position: "bottom-left",
-      autoClose: 1000,
+    // dispatch(likeRequest());
+    const data = await axios.put(`${server}/api/story/like/${id}`, {
+      userId: userId,
     });
+    console.log("data", data);
+    dispatch(likeSuccess(data.story));
+    toast.success("Story liked successfully", { position: "top-center" });
   } catch (error) {
-    dispatch(logoutFailure());
+    console.log(error.response.data.message);
+    dispatch(likeFailure());
+    toast.error(error.response.data.message, { position: "top-center" });
+  }
+};
+
+// export const unlikeStory = (id) => async (dispatch) => {
+//   try {
+//     const { data } = await axios.post(`/api/story/${id}/unlike`);
+//     toast.success("Story unliked successfully", { position: "top-center" });
+//   } catch (error) {
+//     toast.error(error.response.data);
+//   }
+// };
+
+// ================================================= FETCH  BOOKMARKS =================================================
+
+export const getBookmarks = (userId) => async (dispatch) => {
+  try {
+    dispatch(getBookmarksRequest());
+    const { data } = await axios.get(`${server}/api/user/bookmarks/${userId}`);
+    dispatch(getBookmarksSuccess(data.bookmarks));
+  } catch (error) {
+    dispatch(getBookmarksFailure());
     toast.error(error.response.data);
   }
 };
+
+// ================================================= BOOKMARK STORY =================================================
+
+export const bookmarkStory = (id, userId) => async (dispatch) => {
+  try {
+    dispatch(bookmarkRequest());
+    const { data } = await axios.post(`${server}/api/user/bookmark/${id}`, {
+      userId: userId,
+    });
+    dispatch(bookmarkSuccess(data.story));
+    toast.success("Story bookmarked successfully", { position: "top-center" });
+  } catch (error) {
+    dispatch(bookmarkFailure());
+    toast.error(error.response.data.message, { position: "top-center" });
+  }
+};
+//________________________________________________________________________________________________________________________________________

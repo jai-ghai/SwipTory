@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./StoryForm.module.css";
 
-import { categories } from "../../../constants";
+import { categories } from "../../../contants";
 
 const SlideForm = ({ slide, slideIndex, handleChange }) => {
   return (

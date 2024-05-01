@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import SlideForm from "./SlideForm";
 import styles from "./StoryForm.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { closeModal } from "../../common/Modal/modalSlice";
+import { closeModal } from "../../../redux/reducers/modalReducer";
 import { toast } from "react-toastify";
 import axios from "axios";
-import Button from "../../common/Button/Button";
-import { editStorySuccess } from "../storySlice";
-import Loader from "../../common/Loader/Loader";
+import Button from "../../Button/Button";
+import { editStorySuccess } from "../../../redux/reducers/storyReducer";
+import Loader from "../../Loader/Loader";
 
 const StoryForm = () => {
   const dispatch = useDispatch();

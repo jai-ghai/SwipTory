@@ -1,6 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+// import "react-toastify/dist/ReactToastify.css";
 import {
   loginRequest,
   loginSuccess,
@@ -14,8 +14,9 @@ import {
   loadUserSuccess,
   loadUserRequest,
   loadUserFailure,
-} from "../reducers/authSlice";
-import { getStoriesByUser } from "../api/storyAPI";
+} from "../reducers/authReducer";
+import { getStoriesByUser } from "../actions/story";
+import { server } from "../store";
 
 axios.defaults.baseURL = import.meta.env.VITE_APP_API_URL;
 axios.defaults.withCredentials = true;
@@ -27,7 +28,7 @@ export const loadUser = () => async (dispatch) => {
   try {
     dispatch(loadUserRequest());
 
-    const { data } = await axios.get(`/api/user/load/${username}`);
+    const { data } = await axios.get(`${server}/user/load/${username}`);
 
     dispatch(loadUserSuccess(data));
 
@@ -43,7 +44,7 @@ export const loadUser = () => async (dispatch) => {
 export const register = (values) => async (dispatch) => {
   try {
     dispatch(registerRequest());
-    const { data } = await axios.post("/api/user/register", values, {
+    const { data } = await axios.post(`${server}/user/register`, values, {
       withCredentials: true,
     });
     dispatch(registerSuccess(data));
@@ -64,7 +65,7 @@ export const register = (values) => async (dispatch) => {
 export const login = (values) => async (dispatch) => {
   try {
     dispatch(loginRequest());
-    const { data } = await axios.post("/api/user/login", values, {
+    const { data } = await axios.post(`${server}/user/login`, values, {
       withCredentials: true,
     });
 
@@ -88,7 +89,7 @@ export const login = (values) => async (dispatch) => {
 export const logout = () => async (dispatch) => {
   try {
     dispatch(logoutRequest());
-    await axios.post("/api/user/logout", { withCredentials: true });
+    await axios.post(`${server}/user/logout`, { withCredentials: true });
 
     dispatch(logoutSuccess());
 

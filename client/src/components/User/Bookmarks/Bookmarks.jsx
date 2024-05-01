@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getBookmarks } from "../../story/storyAPI";
-import Loader from "../../common/Loader/Loader";
-import Story from "../../story/StoryCard/StoryCard";
-import Button from "../../common/Button/Button";
+import { getBookmarks } from "../../../redux/actions/story";
+import Loader from "../../Loader/Loader";
+import Story from "../../Story/StoryCard/StoryCard";
+import Button from "../../Button/Button";
 import styles from "./Bookmarks.module.css";
 
 const Bookmarks = () => {

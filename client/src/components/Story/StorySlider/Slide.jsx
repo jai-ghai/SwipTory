@@ -1,17 +1,17 @@
 import React from "react";
-import "./StorySlider.css";
-import { useSelector } from "react-redux/es/hooks/useSelector";
+import styles from "./StorySlider.module.css";
+import { useSelector } from "react-redux";
 
 const Slide = ({ slides, imgIndex }) => {
   const { isSmallScreen } = useSelector((state) => state.layout);
 
   return (
-    <div className="slides" style={{ width: "100%", height: "100%" }}>
+    <div className={styles.slides} style={{ width: "100%", height: "100%" }}>
       {slides &&
         slides.map((slide, index) => (
           <>
             <img
-              className="slide_image"
+              className={styles.slideImage}
               key={slide._id}
               style={{
                 display: index === imgIndex ? "block" : "none",
@@ -22,11 +22,11 @@ const Slide = ({ slides, imgIndex }) => {
               alt={`Slide ${index}`}
             />
             <div
-              className="slide_text"
+              className={styles.slideText}
               style={{ display: index === imgIndex ? "block" : "none" }}
             >
-              <h1 className="slide_heading">{slide?.heading}</h1>
-              <p className="slide_p">{slide?.description}</p>
+              <h1 className={styles.slideHeading}>{slide?.heading}</h1>
+              <p className={styles.slideP}>{slide?.description}</p>
             </div>
           </>
         ))}

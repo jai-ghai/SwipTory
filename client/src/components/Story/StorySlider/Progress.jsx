@@ -1,14 +1,14 @@
 import React from "react";
-import "./StorySlider.css";
+import styles from "./StorySlider.module.css";
 
 const Progress = ({ images, progressBars }) => {
   return (
-    <div className={`progress-container`}>
+    <div className={styles.progressContainer}>
       {progressBars &&
         progressBars.map((bar) => (
           <div
             key={bar.id}
-            className="progress-bar"
+            className={styles.progressBar}
             style={{
               width: images
                 ? images.length === 1
@@ -18,7 +18,9 @@ const Progress = ({ images, progressBars }) => {
             }}
           >
             <div
-              className={`progress ${bar.completed ? "completed" : ""}`}
+              className={`${styles.progress} ${
+                bar.completed ? styles.completed : ""
+              }`}
               style={{ width: `${bar.progress}%` }}
             ></div>
             {bar.progress === 0 && (
@@ -27,7 +29,7 @@ const Progress = ({ images, progressBars }) => {
                 alt={`Image ${bar.id}`}
                 width={600}
                 height={600}
-                className="img"
+                className={styles.img}
               />
             )}
           </div>

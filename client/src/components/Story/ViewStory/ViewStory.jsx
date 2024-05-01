@@ -2,12 +2,16 @@ import React, { useEffect } from "react";
 import styles from "./ViewStory.module.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { closeModal, openModal } from "../../common/Modal/modalSlice";
+import { closeModal, openModal } from "../../../redux/reducers/modalReducer";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { likeStory, bookmarkStory, getStory } from "../storyAPI";
+// import "react-toastify/dist/ReactToastify.css";
+import {
+  likeStory,
+  bookmarkStory,
+  getStory,
+} from "../../../redux/actions/story";
 import StorySlider from "../StorySlider/StorySlider";
-import Loader from "../../common/Loader/Loader";
+import Loader from "../../Loader/Loader";
 import shareIcon from "../../../assets/share.svg";
 
 const ViewStory = () => {

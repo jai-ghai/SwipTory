@@ -2,21 +2,23 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import { REGISTER, ADD_STORY, EDIT_STORY, LOGIN } from "./constants";
-import { loadUser } from "./components/auth/authAPI";
+import { REGISTER, ADD_STORY, EDIT_STORY, LOGIN } from "./contants.js";
+import { loadUser } from "./redux/actions/auth.js";
 
 // Importing necessary components
-import Home from "./pages/Home";
-import Bookmarks from "./pages/Bookmarks.jsx";
-import Loader from "./components/common/Loader/Loader";
-import UserStories from "./pages/UserStories";
-import Auth from "./components/auth/Auth";
-import Navbar from "./components/common/Navbar/Navbar";
-import Modal from "./components/common/Modal/Modal.jsx";
-import NotFound from "./components/common/NotFound/NotFound";
-import AddStory from "./components/story/StoryForm/StoryAdd.jsx";
-import EditStory from "./components/story/StoryForm/StoryEdit.jsx";
-import ViewStory from "./components/story/StoryDetail/StoryDetail.jsx";
+import Home from "./pages/HomePage/Homeapage.jsx";
+import Bookmarks from "./pages/BookmarkPage/BookmarkPage.jsx";
+import Loader from "./components/Loader/Loader.jsx";
+import UserStories from "./pages/StoryPage/StoryPage.jsx";
+import Auth from "./components/Auth/Auth.jsx";
+import Navbar from "./components/Header/Header.jsx";
+import Modal from "./components/Modal/Modal.jsx";
+import NotFound from "./components/NotFound/PageNotFound.jsx";
+import AddStory from "./components/Story/StoryForm/StoryAdd.jsx";
+import ViewStory from "./components/Story/ViewStory/ViewStory.jsx";
+// import ViewStory from "./components/story/ViewStory/ViewStory.jsx";
+import EditStory from "./components/Story/StoryForm/StoryEdit.jsx";
+// import ViewStory from "./components/story/ViewStory/ViewStory.jsx";
 
 const App = () => {
   const dispatch = useDispatch();

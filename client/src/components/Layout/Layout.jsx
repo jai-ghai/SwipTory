@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setScreenSize } from "./LayoutSlice";
+import { setScreenSize } from "../../redux/reducers/layoutReducer";
 
 const Layout = ({ children }) => {
   const dispatch = useDispatch();

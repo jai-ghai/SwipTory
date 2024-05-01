@@ -2,16 +2,16 @@ import React, { useEffect, useState } from "react";
 import SlideForm from "./SlideForm";
 import styles from "./StoryForm.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { closeModal } from "../../common/Modal/modalSlice";
+import { closeModal } from "../../../redux/reducers/modalReducer";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { ADD_STORY } from "../../../constants";
-import Button from "../../common/Button/Button";
+import { ADD_STORY } from "../../../contants";
+import Button from "../../Button/Button";
 import {
   createStoryFailure,
   createStoryRequest,
   createStorySuccess,
-} from "../storySlice";
+} from "../../../redux/reducers/storyReducer";
 
 const StoryForm = () => {
   const dispatch = useDispatch();

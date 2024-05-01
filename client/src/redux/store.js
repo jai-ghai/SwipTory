@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authSlice from "./components/auth/authSlice.js";
-import modalSlice from "./components/common/Modal/modalSlice.js";
-import storyReducer from "./components/story/storySlice.js";
-import layoutReducer from "./components/common/Layout/LayoutSlice.js";
+import authSlice from "./reducers/authReducer.js";
+import modalSlice from "./reducers/modalReducer.js";
+import storyReducer from "./reducers/storyReducer.js";
+import layoutReducer from "./reducers/layoutReducer.js";
 
 const store = configureStore({
   reducer: {
@@ -14,3 +14,5 @@ const store = configureStore({
 });
 
 export default store;
+
+export const server = "http://localhost:4000/api/v1";

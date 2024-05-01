@@ -2,8 +2,8 @@ import React from "react";
 import styles from "./StoryCard.module.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { closeModal, openModal } from "../../common/Modal/modalSlice";
-import { getStory } from "../storyAPI";
+import { closeModal, openModal } from "../../../redux/reducers/modalReducer";
+import { getStory } from "../../../redux/actions/story";
 
 const Story = ({ story }) => {
   const navigate = useNavigate();

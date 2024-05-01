@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Header.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../auth/authAPI";
-import { openModal } from "../../common/Modal/modalSlice";
+import { logout } from "../../redux/actions/auth";
+import { openModal } from "../../redux/reducers/modalReducer.js";
 import { useNavigate } from "react-router-dom";
-import avatar from "../../../assets/avatar.png";
-import bookmarkImg from "../../../assets/bookmark.jpg";
-import closeIcon from "../../../assets/close.png";
-import { REGISTER, LOGIN, ADD_STORY } from "../../../constants";
-import Button from "../Button/Button";
+import avatar from "../../assets/myAvatar.png";
+import bookmarkImg from "../../assets/bookmark.jpg";
+import closeIcon from "../../assets/close.png";
+import { REGISTER, LOGIN, ADD_STORY } from "../../contants.js";
+import Button from "../Button/Button.jsx";
 
 const Header = () => {
   const dispatch = useDispatch();

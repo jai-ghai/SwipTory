@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Categories from "../components/story/Categories/Categories";
-import Stories from "../components/story/StoryList/StoryList.jsx";
+import Categories from "../../components/Story/Categories/Categories.jsx";
+import Stories from "../../components/Story/StoryList/StoryList.jsx";
 import {
   getStoriesByCategory,
   getStories,
   getStoriesByUser,
-} from "../components/story/storyAPI";
-import { categories } from "../constants";
-import Loader from "../components/common/Loader/Loader";
-import { endRequest } from "../components/story/storySlice";
+} from "../../redux/actions/story.js";
+import { categories } from "../../contants.js";
+import Loader from "../../components/Loader/Loader.jsx";
+import { endRequest } from "../../redux/reducers/storyReducer.js";
 
 const Home = () => {
   const dispatch = useDispatch();
