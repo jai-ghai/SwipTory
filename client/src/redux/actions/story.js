@@ -36,7 +36,7 @@ axios.defaults.withCredentials = true;
 export const createStory = (values) => async (dispatch) => {
   try {
     dispatch(createStoryRequest());
-    const { data } = await axios.post(`${server}/api/story/create`, values);
+    const { data } = await axios.post(`${server}/story/create`, values);
     dispatch(createStorySuccess(data));
     toast.success("Story created successfully", { position: "top-center" });
   } catch (error) {
@@ -60,7 +60,7 @@ export const getStories = (page, catLimit, cat) => async (dispatch) => {
     }
     dispatch(getStoriesRequest());
     const { data } = await axios.get(
-      `${server}/api/story/getAll?category=All&page=${page}&catLimit=${catLimit}&cat=${cat}`
+      `${server}/story/getAll?category=All&page=${page}&catLimit=${catLimit}&cat=${cat}`
     );
     console.log(data);
     dispatch(getStoriesSuccess(data));
@@ -78,12 +78,12 @@ export const getStory = (storyId, userId) => async (dispatch) => {
     dispatch(fetchStoryRequest());
     if (userId == null) {
       //get story for not authenicated users
-      const { data } = await axios.get(`/api/story/getById/${storyId}`);
+      const { data } = await axios.get(`${server}/story/getById/${storyId}`);
       dispatch(fetchStorySuccess(data));
     } else {
       // get story for authenticated users to check liked/bookmarked or not
       const { data } = await axios.get(
-        `${server}/api/story/getById/${storyId}?userId=${userId}`
+        `${server}/story/getById/${storyId}?userId=${userId}`
       );
       dispatch(fetchStorySuccess(data));
     }
@@ -103,7 +103,7 @@ export const getStoriesByUser =
       }
       dispatch(getStoryByUserRequest());
       const { data } = await axios.get(
-        `${server}/api/story/getAll?userId=${userId}&page=${userStoriesPage}`
+        `${server}/story/getAll?userId=${userId}&page=${userStoriesPage}`
       );
       dispatch(getStoryByUserSuccess(data));
     } catch (error) {
@@ -121,7 +121,7 @@ export const getStoriesByCategory = (category, page) => async (dispatch) => {
     }
     dispatch(getCategoryStoriesRequest());
     const { data } = await axios.get(
-      `${server}/api/story/getAll?category=${category}&page=${page}`
+      `${server}/story/getAll?category=${category}&page=${page}`
     );
     dispatch(getCategoryStoriesSuccess(data));
   } catch (error) {
@@ -136,7 +136,7 @@ export const getStoriesByCategory = (category, page) => async (dispatch) => {
 export const likeStory = (id, userId) => async (dispatch) => {
   try {
     // dispatch(likeRequest());
-    const data = await axios.put(`${server}/api/story/like/${id}`, {
+    const data = await axios.put(`${server}/story/like/${id}`, {
       userId: userId,
     });
     console.log("data", data);
@@ -163,7 +163,7 @@ export const likeStory = (id, userId) => async (dispatch) => {
 export const getBookmarks = (userId) => async (dispatch) => {
   try {
     dispatch(getBookmarksRequest());
-    const { data } = await axios.get(`${server}/api/user/bookmarks/${userId}`);
+    const { data } = await axios.get(`${server}/user/bookmarks/${userId}`);
     dispatch(getBookmarksSuccess(data.bookmarks));
   } catch (error) {
     dispatch(getBookmarksFailure());
@@ -176,7 +176,7 @@ export const getBookmarks = (userId) => async (dispatch) => {
 export const bookmarkStory = (id, userId) => async (dispatch) => {
   try {
     dispatch(bookmarkRequest());
-    const { data } = await axios.post(`${server}/api/user/bookmark/${id}`, {
+    const { data } = await axios.post(`${server}/user/bookmark/${id}`, {
       userId: userId,
     });
     dispatch(bookmarkSuccess(data.story));

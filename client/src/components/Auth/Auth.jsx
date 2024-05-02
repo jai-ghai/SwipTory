@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styles from "./Auth.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { REGISTER, LOGIN } from "../../contants";
-// import { openModal, closeModal } from "../common/Modal/modalSlice";
 import { openModal, closeModal } from "../../redux/reducers/modalReducer";
 
 import {

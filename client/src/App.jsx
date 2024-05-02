@@ -11,13 +11,14 @@ import Bookmarks from "./pages/BookmarkPage/BookmarkPage.jsx";
 import Loader from "./components/Loader/Loader.jsx";
 import UserStories from "./pages/StoryPage/StoryPage.jsx";
 import Auth from "./components/Auth/Auth.jsx";
-import Navbar from "./components/Header/Header.jsx";
+// import Navbar from "./components/Header/Header.jsx";
 import Modal from "./components/Modal/Modal.jsx";
 import NotFound from "./components/NotFound/PageNotFound.jsx";
 import AddStory from "./components/Story/StoryForm/StoryAdd.jsx";
 import ViewStory from "./components/Story/ViewStory/ViewStory.jsx";
 // import ViewStory from "./components/story/ViewStory/ViewStory.jsx";
 import EditStory from "./components/Story/StoryForm/StoryEdit.jsx";
+import Navbar from "./components/Navbar/Navbar.jsx";
 // import ViewStory from "./components/story/ViewStory/ViewStory.jsx";
 
 const App = () => {
